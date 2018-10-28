@@ -17,10 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//авторизация, выход
+//авторизация
 //Route::post('register', 'Auth\RegisterController@register'); было использовано для создания записи администратора
 Route::post('auth', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout');
 
 //просмотр записей, просмотр записи, поиск записи по тегу
 //GET
