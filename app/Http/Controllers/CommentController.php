@@ -44,11 +44,20 @@ class CommentController extends Controller
     /**
      * Удаление коментария
      */
-    public function delete($post, $comment){
-        Comment::where([
-            ['postId',$post],
-            ['id',$comment]
-        ])->delete();
+    public function delete($post,$comment){
+        if(!Post::find($post)){
+            return response()->json([
+                'status'=>false
+            ], 404)->setStatusCode(404,'Post not found delete');
+        }
+        else{
+            if(!Comment::find($comment)){
+                return response()->json([
+                    'status'=>false
+                ], 404)->setStatusCode(404,'Comment not found');
+            }
+        }
+        Comment::where([['postId',$post], ['id',$comment]])->delete();
         return response()->json([
             'status'=>true
         ], 201)->setStatusCode(201,'Successful delete');
