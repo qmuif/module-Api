@@ -17,7 +17,7 @@ class Comment extends Model
      * @return mixed, массив комментариев к посту
      */
     static public function getComment($postId) {
-        $comments = Comment::find($postId);
+        $comments = Comment::where('postId',$postId)->select('id', 'author', 'comment', 'created_at')->get();
         return $comments;
     }
 }
