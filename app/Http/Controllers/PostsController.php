@@ -109,7 +109,7 @@ class PostsController extends Controller
      * Поиск записей по тегу
      */
     public function search($tags){
-        $post = Post::where('tags','like','%'.$tags.'%')->get();
+        $post = Post::where('tags','like',('%'.$tags.'%'))->get();
         return response()->json($post, 201);
     }
 }

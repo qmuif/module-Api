@@ -52,7 +52,7 @@ class Handler extends ExceptionHandler
         {
             return response()->json([
                 'message' => 'Post not found'
-            ], 404);
+            ], 404)->setStatusCode(404,'Post not found');
         }
         return parent::render($request, $exception);
     }

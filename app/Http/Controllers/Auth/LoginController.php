@@ -64,7 +64,7 @@ class LoginController extends Controller
             return response()->json([
                 'status' => true,
                 'token' => $user->api_token
-            ])->setStatusCode(200,'Successful authorization');
+            ],200)->setStatusCode(200,'Successful authorization');
         }
         //иначе возвращаем ошибку
         return $this->sendFailedLoginResponse($request);
