@@ -29,7 +29,7 @@ Route::get('/posts/tag/{tags}', 'PostsController@search');
 
 //Создание, редактирование, удаление статей, удаление коментариев
 //только администратору, с bearer токеном
-Route::middleware('auth:api')->group(function (){
+Route::group(['middleware' => 'auth:api'], function() {
     //POST
     Route::post('/posts/', 'PostsController@store');
     Route::post('/posts/{post}', 'PostsController@update');
