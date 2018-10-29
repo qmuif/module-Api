@@ -48,6 +48,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        //Вывод оишкбки если поста не существует
         if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException)
         {
             return response()->json([
@@ -59,6 +60,7 @@ class Handler extends ExceptionHandler
 
     protected function unauthenticated($request, AuthenticationException $exception)
     {
+        //Вывод ошибки если полтзвоатель не авторизован (по bearer токену)
         return response()->json(['message' => 'Unauthenticated'], 401)->setStatusCode(401,'Unauthorized');
     }
 }

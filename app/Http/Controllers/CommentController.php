@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Post;
 use Illuminate\Http\Request;
 use Auth;
 use Validator;
@@ -14,6 +15,11 @@ class CommentController extends Controller
      */
     public function store($post, Request $request)
     {
+        if(!Post::find($post)){
+            return response()->json([
+                'status'=>false
+            ], 404)->setStatusCode(404,'Post not found');
+        }
         $request->request->add(['postId' => $post]);
         //Если пользователь авторизован
         if(Auth::guard('api')->user()){
@@ -28,7 +34,7 @@ class CommentController extends Controller
                 'comment' => 'required|max:255',
             ]);
         }
-        //Если есть ошибки вернуть их с ошибкой
+        //Если есть ошибки вернуть их
         if ($validator->fails()) {
             return response()->json([
                 'status'=>false,
@@ -48,7 +54,7 @@ class CommentController extends Controller
         if(!Post::find($post)){
             return response()->json([
                 'status'=>false
-            ], 404)->setStatusCode(404,'Post not found delete');
+            ], 404)->setStatusCode(404,'Post not found');
         }
         else{
             if(!Comment::find($comment)){

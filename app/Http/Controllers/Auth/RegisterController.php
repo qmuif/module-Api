@@ -49,6 +49,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
+            //изначально laravel создает тут поле "name", меняем его на "login"
             'login' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
@@ -64,22 +65,22 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
+            //так же производим замену на login тут
             'login' => $data['login'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
     }
-
-    protected function registered(Request $request, $user)
-    {
-        $user->generateToken();
-
-        if($request->wantsJson()) {
-            return response()->json([
-                'data' => $user->toArray()
-            ], 201);
-        } else {
-            return redirect('/');
-        }
-    }
+//      Для создания записи администратора
+//    protected function registered(Request $request, $user)
+//    {
+//        $user->generateToken();
+//        if($request->wantsJson()) {
+//            return response()->json([
+//                'data' => $user->toArray()
+//            ], 201);
+//        } else {
+//            return redirect('/');
+//        }
+//    }
 }

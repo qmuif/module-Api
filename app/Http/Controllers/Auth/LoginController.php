@@ -55,8 +55,8 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-        //если авторизаци я прошла успешно
         $this->validateLogin($request);
+        //если авторизаци я прошла успешно
         if($this->attemptLogin($request)) {
             $user = $this->guard()->user();
             //создаем токен
